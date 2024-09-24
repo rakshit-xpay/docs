@@ -6,15 +6,25 @@
     "light": "/logo/light.svg",
     "href": "https://xpaycheckout.com"
   },
-  "favicon": "/favicon.svg",
+  "theme": "venus",
+  "background": {
+    "style": "windows"
+  },
+  "favicon": "/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#3bc2ff",
+    "light": "#3bc2ff",
+    "dark": "#0331ff",
     "anchors": {
       "from": "#0D9373",
       "to": "#07C983"
     }
+  },
+  "sidebar": {
+    "items": "container"
+  },
+  "topbar": {
+    "style": "gradient"
   },
   "topbarLinks": [
     {
@@ -26,67 +36,55 @@
     "name": "Dashboard",
     "url": "https://dashboard.mintlify.com"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
-  ],
   "navigation": [
     {
       "group": "Get Started",
+      "pages": ["introduction", "onboarding"]
+    },
+    {
+      "group": "Integration",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "integrations/architecture",
+        "integrations/getyourkeys",
+        "integrations/integrationProcess"
       ]
     },
     {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
+      "group": "Working with API",
+      "pages": ["api/authentication", "api/errors"]
     },
     {
-      "group": "API Documentation",
+      "group": "API Endpoint",
       "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        {
+          "group": "xPay API",
+          "pages": [
+            "endpoint/xPayAPIs/create-intent",
+            "endpoint/xPayAPIs/get-intent"
+          ]
+        },
+        {
+          "group": "Sales tax APIs",
+          "pages": [
+            "endpoint/salesTaxAPIs/create-intent-with-tax",
+            "endpoint/salesTaxAPIs/get-intent-with-tax"
+          ]
+        }
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "website": "https://www.xpaycheckout.com/",
+    "linkedin": "https://www.linkedin.com/company/xpay-checkout/"
+  },
+  "feedback": {
+    "thumbsRating": true
+  },
+  "api": {
+    "baseUrl": "https://api.xpaycheckout.com",
+    "auth": {
+      "method": "basic",
+      "name": "[usernameName]:[passwordName]"
+    }
   }
 }

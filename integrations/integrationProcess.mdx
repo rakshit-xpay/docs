@@ -1,0 +1,47 @@
+---
+title: Integration Process
+description: Discover how to integrate xPay’s payment flow into your website frontend using xPay’s payment gateway APIs
+---
+
+<Steps>
+    <Step title="Obtain the xIntentId for the Current Transaction">
+        The **create-intent** POST request from xPay returns an xIntentId in its response.
+        See create-intent API
+        <Note>
+            The **callbackUrl** string in the **create-intent** request should be configured
+            to your client-side page responsible for managing the redirect from xPay
+            checkout following a payment attempt.
+        </Note>
+    </Step>
+    <Step title="Redirect to xPay Checkout">
+        - Include the following query params in the **XPAY_CHECKOUT_URL** —
+            - **xpay_intent_id** with the value of **xIntentId** obtained in Step 1.
+        - Initiate the payment flow by triggering the redirect.
+        - For the value of **XPAY_CHECKOUT_URL** you can use https://pay.xpaycheckout.com
+
+        ```javascript
+        const redirectToCheckout = () => {
+        const url = new URL(XPAY_CHECKOUT_URL);
+        url.searchParams.append("xpay_intent_id", xIntentId);
+        window.open(url.href).focus();
+        };
+        ```
+
+    </Step>
+    <Step title="Handle a Redirect on the callbackUrl">
+        - Build a client-side page to receive the redirect and show the payment status.
+        - Upon completion of the payment process, customers are redirected to the **callbackUrl** with added query parameters **xpay_intent_id**
+        - Use the **get-intent** GET request to retrieve the status and other metadata for the specified intent. Further information can be found here: Link
+
+        ```javascript
+        const onPageLoad = async () => {
+        const url = new URL(window.location.href);
+        const intentId = url.searchParams.get("xpay_intent_id");
+        const intent = await getIntentFromXPay(intentId, type);
+
+        const isPaymentSuccess = intent.status === "SUCCESS";
+        // Use the intent data to a corresponding show UI to the customer
+        };
+        ```
+    </Step>
+</Steps>

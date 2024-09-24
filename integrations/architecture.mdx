@@ -1,0 +1,62 @@
+---
+title: Architecture
+description: Below is the Architecture of your xPay integration laid out.
+---
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#1E90FF', 'edgeLabelBackground': 'transparent', 'tertiaryColor': '#87CEEB', 'secondaryColor': '#4682B4', 'fontFamily': 'Arial', 'fontSize': 16}}}%%
+
+graph TD
+  subgraph Merchant Side
+    A[Merchant Server] -- "Create Payment Intent" --> B[xPay Server]
+    B -- "xIntentId" --> A
+    A -- "xIntentId" --> C[Merchant Frontend]
+    C -- "Redirect with xIntentId" --> D[xPay Client]
+    D -- "Redirect with status and metadata" --> C
+  end
+
+```
+
+### xPay Payment Flow Architecture
+
+This diagram illustrates the integration flow for processing payments through xPay. The architecture involves three key components: the **Merchant Server**, **Merchant Frontend**, and **xPay’s Server and Client systems**. Here's a step-by-step breakdown of the payment process:
+
+<Steps>
+  <Step title="Payment Intent (Merchant Server → xPay Server)">
+    The payment process begins when the Merchant Server initiates a request to
+    the xPay Server to create a payment intent. This intent encapsulates the
+    necessary details for the payment, such as the amount, currency, and other
+    transaction metadata.
+  </Step>
+  <Step title="Receive Payment Intent (xPay Server → Merchant Server)">
+    Once the payment intent is successfully created, the xPay Server responds to
+    the Merchant Server with a unique identifier for the payment, known as the
+    xIntentId. This identifier will be used to track the payment throughout the
+    process.
+  </Step>
+  <Step title="Forward Intent ID (Merchant Server → Merchant Frontend)">
+    The Merchant Server forwards the xIntentId to the Merchant Frontend, which
+    is responsible for managing the user interface that initiates the payment.
+  </Step>
+  <Step title="Redirect to xPay Client (Merchant Frontend → xPay Client)">
+    Upon user interaction (e.g., clicking "Pay Now"), the Merchant Frontend
+    redirects the customer to the xPay Client along with the xIntentId. This
+    redirection allows xPay to handle the actual payment process, presenting the
+    user with various payment options and methods.
+  </Step>
+  <Step title="Process Payment & Return Metadata (xPay Client → Merchant Frontend)">
+    After the payment is processed, the xPay Client redirects the user back to
+    the Merchant Frontend, providing the payment status and any relevant
+    metadata (such as transaction details and confirmation). This ensures the
+    merchant is updated with the final outcome of the payment.
+  </Step>
+</Steps>
+
+### Key Components
+
+- **Merchant Server**: Handles backend operations like creating payment intents and processing the xIntentId received from xPay.
+- **Merchant Frontend**: Manages the user interface, enabling users to initiate payments and receive feedback on the payment status.
+- **xPay Server**: Responsible for generating the payment intent and returning the xIntentId to the Merchant Server.
+- **xPay Client**: Manages the user’s payment journey, providing them with payment options and returning transaction metadata after payment processing.
+
+This flow ensures a smooth, secure, and efficient integration for handling payments via xPay, with minimal friction on the user’s end. Each step is designed to maintain clarity, streamline transaction handling, and facilitate a seamless experience for both developers and users.
