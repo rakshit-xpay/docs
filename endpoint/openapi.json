@@ -105,6 +105,93 @@
           }
         }
       }
+    },
+    "/payments/create-intent-with-tax": {
+      "post": {
+        "description": "This API is the first API to be called when the payment flow begins. Through this API, you inform xPay of the intent of the user to pay with all the requisite info about the user.",
+        "requestBody": {
+          "description": "Plant to add to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create-intent-with-tax"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "plant response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/create-intent-response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/get-intent-with-tax/{xIntentId}": {
+      "get": {
+        "description": "You can use this API to get the status of the transaction that corresponds to a particular intent. This API also returns the masked card info of the payer (if it's a card transaction) and the transaction lifecycle, which includes multiple attempts, failures, and other checkpoints during a transaction.",
+        "parameters": [
+          {
+            "name": "xIntentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique identifier of the intent",
+            "example": "65b2cdc02755eb3ef2ae41ab"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with transaction status and related details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntentDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request, xIntentId not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized request, invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -168,6 +255,74 @@
             "description": "The URL we will callback to with the order status once it finishes.",
             "type": "string",
             "example": "https://example.com/callback"
+          }
+        }
+      },
+      "create-intent-with-tax": {
+        "required": [
+          "amount",
+          "currency",
+          "receiptId",
+          "customerDetails",
+          "callbackUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          },
+          "currency": {
+            "description": "Three letter abbreviation of the currency",
+            "type": "string",
+            "enum": ["USD"],
+            "example": "USD"
+          },
+          "receiptId": {
+            "description": "Your identifier of the order",
+            "type": "string",
+            "example": "order123"
+          },
+          "customerDetails": {
+            "description": "Details about the customer",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "Customer's name",
+                "type": "string",
+                "example": "John Doe"
+              },
+              "email": {
+                "description": "Customer's email address",
+                "type": "string",
+                "example": "john.doe@example.com"
+              },
+              "contactNumber": {
+                "description": "Customer's contact number including country code",
+                "type": "integer",
+                "format": "int64",
+                "example": 15551234567
+              }
+            },
+            "required": ["name", "email", "contactNumber"]
+          },
+          "description": {
+            "description": "The description of the order, if any",
+            "type": "string",
+            "example": "Order for 2 items"
+          },
+          "callbackUrl": {
+            "description": "The URL we will callback to with the order status once it finishes.",
+            "type": "string",
+            "example": "https://example.com/callback"
+          },
+          "naicsCode": {
+            "description": "This is the NAICS code of the product you are selling using xPay. You can refer to the complete list of NAICS codes [here](https://www.naics.com/search-naics-codes-by-industry/).",
+            "type": "integer",
+            "format": "int64",
+            "example": 52
           }
         }
       },
@@ -275,7 +430,18 @@
             "example": "65b2cdc02755eb3ef2ae41ab"
           }
         },
-        "required": ["amount", "currency", "receiptId", "mode", "customerDetails", "description", "callbackUrl", "createdAt", "status", "xIntentId"]
+        "required": [
+          "amount",
+          "currency",
+          "receiptId",
+          "mode",
+          "customerDetails",
+          "description",
+          "callbackUrl",
+          "createdAt",
+          "status",
+          "xIntentId"
+        ]
       },
       "Error": {
         "required": ["errorCode", "errorDescription"],

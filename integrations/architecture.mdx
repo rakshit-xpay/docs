@@ -3,19 +3,10 @@ title: Architecture
 description: Below is the Architecture of your xPay integration laid out.
 ---
 
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#1E90FF', 'edgeLabelBackground': 'transparent', 'tertiaryColor': '#87CEEB', 'secondaryColor': '#4682B4', 'fontFamily': 'Arial', 'fontSize': 16}}}%%
-
-graph TD
-  subgraph Merchant Side
-    A[Merchant Server] -- "Create Payment Intent" --> B[xPay Server]
-    B -- "xIntentId" --> A
-    A -- "xIntentId" --> C[Merchant Frontend]
-    C -- "Redirect with xIntentId" --> D[xPay Client]
-    D -- "Redirect with status and metadata" --> C
-  end
-
-```
+<Frame caption="How to accept payments?">
+  <img className="block dark:hidden" src="/images/architecture-light.png" alt="Architecture Light" />
+  <img className="hidden dark:block" src="/images/architecture-dark.png" alt="Architecture Dark" />
+</Frame>
 
 ### xPay Payment Flow Architecture
 

@@ -51,7 +51,7 @@
     },
     {
       "group": "Working with API",
-      "pages": ["api/authentication", "api/errors"]
+      "pages": ["api/authentication",  "api/paymentMethods", "api/errors"]
     },
     {
       "group": "API Endpoint",
@@ -71,6 +71,10 @@
           ]
         }
       ]
+    },
+    {
+      "group": "Help",
+      "pages": ["help/faq"]
     }
   ],
   "footerSocials": {

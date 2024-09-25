@@ -1,0 +1,74 @@
+---
+title: FAQs
+description: Frequently Asked Questions
+---
+
+## **Product FAQs**
+
+<Accordion title="What do I need to start collecting payments?">
+  To begin collecting payments, refer to the [onboarding section](/onboarding)
+  of our documentation. It will guide you step-by-step through the process.
+</Accordion>
+
+<Accordion title="Which countries does xPay support?">
+  xPay is compatible with over 100+ countries including the United States,
+  United Kingdom, India, Germany, France, Canada, and many more.
+</Accordion>
+
+<Accordion title="What currencies are supported on xPay?">
+  xPay supports transactions in 20+ currencies like USD, EUR, GBP, INR, and many
+  others. You can find the full list of supported currencies in the [payment
+  methods](/api/paymentMethods).
+</Accordion>
+
+<Accordion title="Can I set up recurring payments using xPay?">
+  Yes, xPay supports subscription and recurring payments. You can set up and
+  manage them through our dashboard or via API integration. Please refer to the
+  [subscription section](#) for more details.
+</Accordion>
+
+---
+
+## **Tech FAQs**
+
+<Accordion title="How and where do I use the xPay Keys?">
+We follow Basic Auth RFC for authentication.
+
+In basic HTTP authentication, a request contains a header field in the form of `Authorization: Basic <credentials>`, where `<credentials>` is the [Base64](https://en.wikipedia.org/wiki/Base64) encoding of `<xPay Public Key>` and `<xPay Private Key>` joined by a single colon `:`.
+
+For a detailed explanation of how to use xPay keys, refer to the [Authentication Page](/api/authentication).
+
+</Accordion>
+
+<Accordion title="What value do I use in the amount field in API calls?">
+  All values in the `amount` field must be in the smallest currency unit. For
+  example: - If the transaction is in USD, 1 USD = 100 cents, so to charge USD
+  2, you should set the amount to 200. - Similarly, for EUR, 1 EUR = 100 cents.
+</Accordion>
+
+<Accordion title="What do I do if I receive a 400 Bad Request response?">
+A 400 Bad Request error usually means there’s something wrong with the request. This can be due to:
+
+- Incorrect parameters
+- Missing required fields
+- Issues with authentication or malformed data
+
+Check your API call and ensure all required parameters are correct and properly formatted. Also, verify your xPay API keys and ensure they’re correctly included in the header.
+
+For a more detailed description of error codes and troubleshooting tips, refer to the [Errors](/api/errors).
+
+</Accordion>
+
+<Accordion title="How do I integrate xPay with my platform?">
+  You can integrate xPay with your platform using our well-documented API. The
+  integration process includes authentication, creating a payment intent,
+  handling the payment process, and confirming the payment. Refer to the [API
+  Integration Guide](/integrations/architecture) for step-by-step details.
+</Accordion>
+
+---
+
+<Note>
+  If you need more assistance or have additional questions, feel free to contact
+  our support team at [hello@xpaycheckout.com](mailto:hello@xpaycheckout.com).
+</Note>
