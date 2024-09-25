@@ -66,10 +66,11 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "66f3fd3cfd39265bedd3419f",
+              "default": "66f3fd3cfd39265bedd3419f"
             },
-            "description": "Unique identifier of the intent",
-            "example": "65b2cdc02755eb3ef2ae41ab"
+            "description": "Unique identifier of the intent"
           }
         ],
         "responses": {
@@ -108,7 +109,7 @@
     },
     "/payments/create-intent-with-tax": {
       "post": {
-        "description": "This API is the first API to be called when the payment flow begins. Through this API, you inform xPay of the intent of the user to pay with all the requisite info about the user.",
+        "description": "This API creates a payment intent with tax calculations based on the user's location and other relevant factors. It returns an xIntentId along with the calculated tax, enabling compliant payment processing with accurate tax details.",
         "requestBody": {
           "description": "Plant to add to the store",
           "content": {
@@ -146,7 +147,7 @@
     },
     "/payments/get-intent-with-tax/{xIntentId}": {
       "get": {
-        "description": "You can use this API to get the status of the transaction that corresponds to a particular intent. This API also returns the masked card info of the payer (if it's a card transaction) and the transaction lifecycle, which includes multiple attempts, failures, and other checkpoints during a transaction.",
+        "description": "This API retrieves the status and details of a payment intent, including tax calculations. Use this to check the payment's lifecycle, tax breakdown, and any associated metadata.",
         "parameters": [
           {
             "name": "xIntentId",
@@ -352,10 +353,7 @@
           },
           "metadata": {
             "type": "object",
-            "description": "Additional metadata related to the intent",
-            "additionalProperties": {
-              "type": "string"
-            }
+            "description": "Additional metadata related to the intent"
           }
         },
         "required": ["xIntentId", "status", "createdAt", "mode"]

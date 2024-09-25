@@ -1,47 +1,60 @@
 ---
 title: Integration Process
-description: Discover how to integrate xPay’s payment flow into your website frontend using xPay’s payment gateway APIs
+description: Discover how to integrate xPay’s payment flow into your website using xPay’s payment gateway APIs.
 ---
 
 <Steps>
-    <Step title="Obtain the xIntentId for the Current Transaction">
-        The **create-intent** POST request from xPay returns an xIntentId in its response.
-        See create-intent API
+    <Step title="Initiate Payment Intent (Merchant Server → xPay Server)">
+        Start the transaction by making a **create-intent** POST request to xPay's API from the Merchant Server, which returns an `xIntentId` in the response. 
+        See [create-intent API](/endpoint/xPayAPIs/create-intent) for details.
         <Note>
-            The **callbackUrl** string in the **create-intent** request should be configured
-            to your client-side page responsible for managing the redirect from xPay
-            checkout following a payment attempt.
+            The **callbackUrl** string in the **create-intent** request should be configured to your client-side page responsible for managing the redirect from xPay checkout following a payment attempt.
         </Note>
     </Step>
-    <Step title="Redirect to xPay Checkout">
-        - Include the following query params in the **XPAY_CHECKOUT_URL** —
-            - **xpay_intent_id** with the value of **xIntentId** obtained in Step 1.
-        - Initiate the payment flow by triggering the redirect.
-        - For the value of **XPAY_CHECKOUT_URL** you can use https://pay.xpaycheckout.com
+    <Step title="Receive Payment Intent Confirmation (xPay Server → Merchant Server)">
+        Once the payment intent is created, the xPay Server will respond with an `xIntentId`, which is used to track the payment status throughout the transaction.
+        <Tip>The Merchant Server should log or store this identifier for future reference.</Tip>
+    </Step>
+    <Step title="Forward Intent Id to Merchant Frontend (Merchant Server → Merchant Frontend)">
+        The Merchant Server forwards the `xIntentId` to the Merchant Frontend, enabling it to manage user interactions related to the payment.
+        <Info>Ensure the frontend is ready to handle the payment initiation process.</Info>
+    </Step>
+    <Step title="Redirect to xPay Checkout (Merchant Frontend → xPay Client)">
+        Redirect the user to xPay’s checkout page, including the necessary query parameters:
+        Initiate the payment by redirecting to the xPay Checkout URL: `https://pay.xpaycheckout.com`.
+
+        <Note>**xpay_intent_id** should be set to the value of **xIntentId** obtained in Step 1.</Note>
 
         ```javascript
         const redirectToCheckout = () => {
-        const url = new URL(XPAY_CHECKOUT_URL);
-        url.searchParams.append("xpay_intent_id", xIntentId);
-        window.open(url.href).focus();
+            const url = new URL("https://pay.xpaycheckout.com");
+            url.searchParams.append("xpay_intent_id", xIntentId);
+            window.open(url.href).focus();
         };
         ```
-
     </Step>
-    <Step title="Handle a Redirect on the callbackUrl">
+    <Step title="Handle a Redirect on the callbackUrl (xPay Client → Merchant Frontend)">
         - Build a client-side page to receive the redirect and show the payment status.
-        - Upon completion of the payment process, customers are redirected to the **callbackUrl** with added query parameters **xpay_intent_id**
-        - Use the **get-intent** GET request to retrieve the status and other metadata for the specified intent. Further information can be found here: Link
+        - After the payment process, customers will be redirected to the **callbackUrl** with the query parameter **xpay_intent_id**.
+        - The Merchant Frontend contacts the Merchant Server, which invokes the **get-intent** GET request to retrieve the status and other metadata for the specified intent. See [get-intent API](/endpoint/xPayAPIs/get-intent) for details.
 
         ```javascript
         const onPageLoad = async () => {
-        const url = new URL(window.location.href);
-        const intentId = url.searchParams.get("xpay_intent_id");
-        const intent = await getIntentFromXPay(intentId, type);
-
-        const isPaymentSuccess = intent.status === "SUCCESS";
-        // Use the intent data to a corresponding show UI to the customer
+            const url = new URL(window.location.href);
+            const intentId = url.searchParams.get("xpay_intent_id");
+            
+            const intent = await getIntentStatus(intentId, metadata); // From the Merchant Server
+            if(intent.status === "SUCCESS") {
+                // redirect to your payment success page
+            } else {
+                // redirect to your payment success page
+            }
         };
         ```
     </Step>
 </Steps>
+
+---
+
+By following this process, you can easily integrate xPay’s payment gateway into your website, ensuring a secure and streamlined transaction flow. Now, you can explore [Working with API](/api/authentication) to begin working with specific endpoints and finalize the integration.
+

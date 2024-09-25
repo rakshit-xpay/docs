@@ -17,30 +17,32 @@ This diagram illustrates the integration flow for processing payments through xP
     The payment process begins when the Merchant Server initiates a request to
     the xPay Server to create a payment intent. This intent encapsulates the
     necessary details for the payment, such as the amount, currency, and other
-    transaction metadata.
+    transaction metadata. See all the details in [xPay APIs](/endpoint/xPayAPIs/create-intent).
   </Step>
   <Step title="Receive Payment Intent (xPay Server → Merchant Server)">
     Once the payment intent is successfully created, the xPay Server responds to
     the Merchant Server with a unique identifier for the payment, known as the
-    xIntentId. This identifier will be used to track the payment throughout the
+    `xIntentId`. This identifier will be used to track the payment throughout the
     process.
   </Step>
   <Step title="Forward Intent ID (Merchant Server → Merchant Frontend)">
-    The Merchant Server forwards the xIntentId to the Merchant Frontend, which
+    The Merchant Server forwards the **xIntentId** to the Merchant Frontend, which
     is responsible for managing the user interface that initiates the payment.
   </Step>
   <Step title="Redirect to xPay Client (Merchant Frontend → xPay Client)">
-    Upon user interaction (e.g., clicking "Pay Now"), the Merchant Frontend
-    redirects the customer to the xPay Client along with the xIntentId. This
+    Upon user interaction (e.g., clicking `Pay Now`), the Merchant Frontend
+    redirects the customer to the xPay Client along with the **xIntentId**. This
     redirection allows xPay to handle the actual payment process, presenting the
-    user with various payment options and methods.
+    user with various payment options and methods. See all the methods here [Payment Methods](/api/paymentMethods)
   </Step>
   <Step title="Process Payment & Return Metadata (xPay Client → Merchant Frontend)">
-    After the payment is processed, the xPay Client redirects the user back to
-    the Merchant Frontend, providing the payment status and any relevant
-    metadata (such as transaction details and confirmation). This ensures the
-    merchant is updated with the final outcome of the payment.
-  </Step>
+  After the payment is processed, the xPay Client redirects the user back to
+  the Merchant Frontend, providing the **xIntentId** and any relevant
+  metadata.
+
+  <Tip>Now, you can check the payment status by contacting your server, which will communicate with xPay's server to verify the status using the **xIntentId**.</Tip>
+</Step>
+
 </Steps>
 
 ### Key Components
