@@ -54,6 +54,7 @@
       "pages": [
         "api-documentation/authentication",
         "api-documentation/paymentMethods",
+        "api-documentation/supportedCurrencies",
         "api-documentation/errors"
       ]
     },

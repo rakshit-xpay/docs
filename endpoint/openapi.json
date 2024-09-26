@@ -626,7 +626,7 @@
           },
           "errorDescription": {
             "type": "string",
-            "example": "Something went wrong"
+            "example": "Failed to read request"
           }
         }
       }
