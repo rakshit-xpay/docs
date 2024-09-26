@@ -64,7 +64,8 @@
           "group": "xPay API",
           "pages": [
             "endpoint/xPayAPIs/create-intent",
-            "endpoint/xPayAPIs/get-intent"
+            "endpoint/xPayAPIs/get-intent",
+            "endpoint/xPayAPIs/generate-link"
           ]
         },
         {

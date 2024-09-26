@@ -23,7 +23,7 @@
       "post": {
         "description": "This API is the first API to be called when the payment flow begins. Through this API, you inform xPay of the intent of the user to pay with all the requisite info about the user.",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Create Intent",
           "content": {
             "application/json": {
               "schema": {
@@ -35,11 +35,11 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Create Intent response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/create-intent-response"
+                  "$ref": "#/components/schemas/IntentDetailsResponse"
                 }
               }
             }
@@ -107,11 +107,49 @@
         }
       }
     },
+    "/link/merchant/generate-link": {
+      "post": {
+        "description": "This API can be used to generate payment links programmatically. Payments links are basically standalone webpages where your customer can make a one time payment. These do not need any integrations.",
+        "requestBody": {
+          "description": "Generate Payment Link",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/generate-link"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Generate Payment Link",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/generate-link-response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/payments/create-intent-with-tax": {
       "post": {
         "description": "This API creates a payment intent with tax calculations based on the user's location and other relevant factors. It returns an xIntentId along with the calculated tax, enabling compliant payment processing with accurate tax details.",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Create Intent with tax",
           "content": {
             "application/json": {
               "schema": {
@@ -123,7 +161,7 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "create intent with tax response",
             "content": {
               "application/json": {
                 "schema": {
@@ -256,6 +294,69 @@
             "description": "The URL we will callback to with the order status once it finishes.",
             "type": "string",
             "example": "https://example.com/callback"
+          }
+        }
+      },
+      "generate-link": {
+        "required": [
+          "amount",
+          "currency",
+          "receiptId",
+          "customerDetails",
+          "dueDate"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          },
+          "currency": {
+            "description": "Three letter abbreviation of the currency",
+            "type": "string",
+            "enum": ["USD"],
+            "example": "USD"
+          },
+          "receiptId": {
+            "description": "Your identifier of the order",
+            "type": "string",
+            "example": "order123"
+          },
+          "customerDetails": {
+            "description": "Details about the customer",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "Customer's name",
+                "type": "string",
+                "example": "John Doe"
+              },
+              "email": {
+                "description": "Customer's email address",
+                "type": "string",
+                "example": "john.doe@example.com"
+              },
+              "contactNumber": {
+                "description": "Customer's contact number including country code",
+                "type": "integer",
+                "format": "int64",
+                "example": 15551234567
+              }
+            },
+            "required": ["name", "email", "contactNumber"]
+          },
+          "description": {
+            "description": "The description of the order, if any",
+            "type": "string",
+            "example": "Order for 2 items"
+          },
+          "dueDate": {
+            "description": "Timestamp in epoch milliseconds, indicating the expiration time of the link",
+            "type": "integer",
+            "format": "int64",
+            "example": 32526868154000
           }
         }
       },
@@ -440,6 +541,17 @@
           "status",
           "xIntentId"
         ]
+      },
+      "generate-link-response": {
+        "type": "object",
+        "properties": {
+          "shortUrl": {
+            "type": "string",
+            "description": "The shortened URL generated by the xPay API. This link can be shared with customers for completing payments.",
+            "example": "https://api.xpaycheckout.com/link/pcTrro7D"
+          }
+        },
+        "required": ["shortUrl"]
       },
       "Error": {
         "required": ["errorCode", "errorDescription"],
