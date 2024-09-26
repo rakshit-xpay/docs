@@ -95,5 +95,11 @@
       "method": "basic",
       "name": "[usernameName]:[passwordName]"
     }
-  }
+  },
+  "analytics": {
+    "posthog": {
+        "apiKey": "phc_7aJLSdii3o5FaFeGUyQGl2x4Hf8K133tfU4zkmuE3sY"
+    }
+}
+
 }
