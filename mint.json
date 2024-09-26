@@ -94,8 +94,5 @@
       "method": "basic",
       "name": "[usernameName]:[passwordName]"
     }
-  },
-  "metadata": {
-    "og:image": "/images/xPay_dashboard.png"
   }
 }

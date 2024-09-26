@@ -7,6 +7,111 @@ At xPay, we follow the Basic Auth RFC (RFC 7617) standard for authenticating req
 
 ## How Basic Authentication Works
 
+<RequestExample>
+
+```javascript Node.js
+const createHeaders = (username, password) => {
+    const auth = `${username}:${password}`;
+    const encodedAuth = Buffer.from(auth).toString('base64');
+    return {
+        'Authorization': `Basic ${encodedAuth}`
+    };
+};
+
+// Usage
+const headers = createHeaders('<xPay Public Key>', '<xPay Private Key>');
+console.log(headers);
+
+// Never expose your API keys in your code or publicly.
+// For security purposes, always store your keys in your environment variables. 
+// Exposing your keys can compromise your xPay account and the security of your transactions.
+
+// The axios library is a popular choice for making HTTP requests in Node.js and supports Basic Authentication natively.
+```
+
+```java Java
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import org.springframework.http.HttpHeaders;
+
+public class AuthUtils {
+
+    public static HttpHeaders createHeaders(String username, String password) {
+        String auth = username + ":" + password;
+        byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
+        String authHeader = "Basic " + new String(encodedAuth);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authHeader);
+        return headers;
+    }
+
+    // Usage
+    public static void main(String[] args) {
+        HttpHeaders headers = createHeaders("<xPay Public Key>", "<xPay Private Key>");
+        System.out.println(headers);
+    }
+}
+
+// Never expose your API keys in your code or publicly.
+// For security purposes, always store your keys in your environment variables.
+// Exposing your keys can compromise your xPay account and the security of your transactions.
+
+// The Apache HttpClient is a good choice for making HTTP requests in Java and it supports Basic Authentication natively.
+```
+
+```python Python
+import base64
+
+def create_headers(username, password):
+  auth = f"{username}:{password}"
+  encoded_auth = base64.b64encode(auth.encode('ascii')).decode('ascii')
+  headers = {
+      'Authorization': f"Basic {encoded_auth}"
+  }
+  return headers
+
+# Usage
+headers = create_headers("<xPay Public Key>", "<xPay Private Key>")
+print(headers)
+
+# Never expose your API keys in your code or publicly.
+# For security purposes, always store your keys in your environment variables. 
+# Exposing your keys can compromise your xPay account and the security of your transactions.
+
+# The requests library is the most commonly used for making HTTP requests in Python and supports Basic Authentication natively.
+```
+
+```rust Rust
+// First, make sure to include the `base64` crate in your `Cargo.toml`
+// [dependencies]
+// base64 = "0.13.0"
+
+use base64::encode;
+use std::collections::HashMap;
+
+fn create_headers(username: &str, password: &str) -> HashMap<String, String> {
+    let auth = format!("{}:{}", username, password);
+    let encoded_auth = encode(auth);
+    let mut headers = HashMap::new();
+    headers.insert("Authorization".to_string(), format!("Basic {}", encoded_auth));
+    headers
+}
+
+// Usage
+fn main() {
+    let headers = create_headers("<xPay Public Key>", "<xPay Private Key>");
+    println!("{:?}", headers);
+}
+
+// Never expose your API keys in your code or publicly.
+// For security purposes, always store your keys in your environment variables. 
+// Exposing your keys can compromise your xPay account and the security of your transactions.
+
+// The reqwest library is a popular choice for making HTTP requests in Rust and supports Basic Authentication natively.
+```
+</RequestExample>
+
 In Basic HTTP Authentication, your request will contain an Authorization header with the following format:
 
 ```http
@@ -15,7 +120,10 @@ Authorization: Basic <credentials>
 
 Where `<credentials>` represents your xPay authentication details — specifically, your **xPay Public Key** and **xPay Private Key**. These are combined and Base64 encoded for transmission:
 
-<Tip>Go through [Get Your Keys](/integrations/getyourkeys) document to obtain your xPay authentication keys.</Tip>
+<Tip>
+  Go through [Get Your Keys](/integrations/getyourkeys) document to obtain your
+  xPay authentication keys.
+</Tip>
 
 <Steps>
   <Step title="Combine Public and Private Keys">
@@ -44,12 +152,12 @@ To simulate API requests using Postman, follow these steps:
 
 <Steps>
   <Step title="Select Basic Auth in Postman">
-    Navigate to the **Authorization** tab in Postman. 
-    Under the Type dropdown, select **Basic Auth**.
+    Navigate to the **Authorization** tab in Postman. Under the Type dropdown,
+    select **Basic Auth**.
   </Step>
   <Step title="Enter API Credentials">
-    - In the **Username** field, enter your **xPay Public Key**. 
-    - In the **Password** field, enter your **xPay Private Key**.
+    - In the **Username** field, enter your **xPay Public Key**. - In the
+    **Password** field, enter your **xPay Private Key**.
   </Step>
 </Steps>
 

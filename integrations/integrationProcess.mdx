@@ -25,7 +25,7 @@ description: Discover how to integrate xPay’s payment flow into your website u
 
         <Note>**xpay_intent_id** should be set to the value of **xIntentId** obtained in Step 1.</Note>
 
-        ```javascript
+        ```javascript JavaScript
         const redirectToCheckout = () => {
             const url = new URL("https://pay.xpaycheckout.com");
             url.searchParams.append("xpay_intent_id", xIntentId);
@@ -38,7 +38,7 @@ description: Discover how to integrate xPay’s payment flow into your website u
         - After the payment process, customers will be redirected to the **callbackUrl** with the query parameter **xpay_intent_id**.
         - The Merchant Frontend contacts the Merchant Server, which invokes the **get-intent** GET request to retrieve the status and other metadata for the specified intent. See [get-intent API](/endpoint/xPayAPIs/get-intent) for details.
 
-        ```javascript
+        ```javascript JavaScript
         const onPageLoad = async () => {
             const url = new URL(window.location.href);
             const intentId = url.searchParams.get("xpay_intent_id");
