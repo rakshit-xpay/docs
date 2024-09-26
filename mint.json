@@ -52,6 +52,7 @@
     {
       "group": "Working with API",
       "pages": [
+        "api-documentation/introduction",
         "api-documentation/authentication",
         "api-documentation/paymentMethods",
         "api-documentation/supportedCurrencies",

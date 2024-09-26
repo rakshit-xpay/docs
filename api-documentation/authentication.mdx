@@ -11,19 +11,19 @@ At xPay, we follow the Basic Auth RFC (RFC 7617) standard for authenticating req
 
 ```javascript Node.js
 const createHeaders = (username, password) => {
-    const auth = `${username}:${password}`;
-    const encodedAuth = Buffer.from(auth).toString('base64');
-    return {
-        'Authorization': `Basic ${encodedAuth}`
-    };
+  const auth = `${username}:${password}`;
+  const encodedAuth = Buffer.from(auth).toString("base64");
+  return {
+    Authorization: `Basic ${encodedAuth}`,
+  };
 };
 
 // Usage
-const headers = createHeaders('<xPay Public Key>', '<xPay Private Key>');
+const headers = createHeaders("<xPay Public Key>", "<xPay Private Key>");
 console.log(headers);
 
 // Never expose your API keys in your code or publicly.
-// For security purposes, always store your keys in your environment variables. 
+// For security purposes, always store your keys in your environment variables.
 // Exposing your keys can compromise your xPay account and the security of your transactions.
 
 // The axios library is a popular choice for making HTTP requests in Node.js and supports Basic Authentication natively.
@@ -76,7 +76,7 @@ headers = create_headers("<xPay Public Key>", "<xPay Private Key>")
 print(headers)
 
 # Never expose your API keys in your code or publicly.
-# For security purposes, always store your keys in your environment variables. 
+# For security purposes, always store your keys in your environment variables.
 # Exposing your keys can compromise your xPay account and the security of your transactions.
 
 # The requests library is the most commonly used for making HTTP requests in Python and supports Basic Authentication natively.
@@ -105,11 +105,12 @@ fn main() {
 }
 
 // Never expose your API keys in your code or publicly.
-// For security purposes, always store your keys in your environment variables. 
+// For security purposes, always store your keys in your environment variables.
 // Exposing your keys can compromise your xPay account and the security of your transactions.
 
 // The reqwest library is a popular choice for making HTTP requests in Rust and supports Basic Authentication natively.
 ```
+
 </RequestExample>
 
 In Basic HTTP Authentication, your request will contain an Authorization header with the following format:

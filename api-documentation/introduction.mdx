@@ -1,0 +1,54 @@
+---
+title: "API Introduction"
+---
+
+Welcome to the xPay API documentation! Here, you'll find everything you need to get started with integrating our payment solutions into your application.
+
+## Base API URL
+
+The base URL for all xPay API requests is: 
+
+```bash
+https://api.xpaycheckout.com
+```
+
+## Available APIs
+
+Here’s a list of the key APIs you can integrate with:
+
+- **Create Intent**
+
+  - **Endpoint**: `/payments/create-intent`
+  - **Description**: Initiates a payment intent with necessary transaction details.
+  - **Detailed Documentation**: [Create Intent API](/endpoint/xPayAPIs/create-intent)
+
+- **Get Intent**
+
+  - **Endpoint**: `/payments/get-intent/{xIntentId}`
+  - **Description**: Retrieves the status and details of a payment intent.
+  - **Detailed Documentation**: [Get Intent API](/endpoint/xPayAPIs/get-intent)
+
+- **Payment Links**
+
+  - **Endpoint**: `link/merchant/generate-link`
+  - **Description**: Generates a payment link for a specific amount.
+  - **Detailed Documentation**: [Payment Links API](/endpoint/xPayAPIs/generate-link)
+
+- **Create Intent with Tax**
+
+  - **Endpoint**: `/payments/create-intent-with-tax`
+  - **Description**: Initiates a payment intent including tax calculations.
+  - **Detailed Documentation**: [Create Intent with Tax API](/endpoint/salesTaxAPIs/create-intent-with-tax)
+
+- **Get Intent with Tax**
+  - **Endpoint**: `/payments/get-intent-with-tax/{xIntentId}`
+  - **Description**: Retrieves the status and tax details of a payment intent.
+  - **Detailed Documentation**: [Get Intent with Tax API](/endpoint/salesTaxAPIs/get-intent-with-tax)
+
+## Postman Collection
+
+To help you get started quickly, we have prepared a Postman collection containing all the available APIs. Click the button below to access it:
+
+[![Postman Collection](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/36210620-0d3ebf1b-c2d2-45ac-9394-53ed93d618b2?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D36210620-0d3ebf1b-c2d2-45ac-9394-53ed93d618b2%26entityType%3Dcollection%26workspaceId%3D942329da-95f4-4a2f-b2bf-c8e9446c76da)
+
+Feel free to explore the APIs and reach out at [hello@xpaycheckout.com](mailto:hello@xpaycheckout.com) if you have any questions or need further assistance!
