@@ -39,7 +39,12 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "onboarding"]
+      "pages": [
+        "introduction",
+        "onboarding",
+        "supportedCurrencies",
+        "paymentMethods"
+      ]
     },
     {
       "group": "Integration",
@@ -50,31 +55,29 @@
       ]
     },
     {
-      "group": "Working with API",
+      "group": "Working with our APIs",
       "pages": [
         "api-documentation/introduction",
         "api-documentation/authentication",
-        "api-documentation/paymentMethods",
-        "api-documentation/supportedCurrencies",
-        "api-documentation/errors"
-      ]
-    },
-    {
-      "group": "API Endpoint",
-      "pages": [
+        "api-documentation/errors",
         {
-          "group": "xPay API",
+          "group": "API Endpoints",
           "pages": [
-            "endpoint/xPayAPIs/create-intent",
-            "endpoint/xPayAPIs/get-intent",
-            "endpoint/xPayAPIs/generate-link"
-          ]
-        },
-        {
-          "group": "Sales tax APIs",
-          "pages": [
-            "endpoint/salesTaxAPIs/create-intent-with-tax",
-            "endpoint/salesTaxAPIs/get-intent-with-tax"
+            {
+              "group": "xPay API",
+              "pages": [
+                "endpoint/xPayAPIs/create-intent",
+                "endpoint/xPayAPIs/get-intent",
+                "endpoint/xPayAPIs/generate-link"
+              ]
+            },
+            {
+              "group": "Sales tax APIs",
+              "pages": [
+                "endpoint/salesTaxAPIs/create-intent-with-tax",
+                "endpoint/salesTaxAPIs/get-intent-with-tax"
+              ]
+            }
           ]
         }
       ]
@@ -100,8 +103,7 @@
   },
   "analytics": {
     "posthog": {
-        "apiKey": "phc_7aJLSdii3o5FaFeGUyQGl2x4Hf8K133tfU4zkmuE3sY"
+      "apiKey": "phc_7aJLSdii3o5FaFeGUyQGl2x4Hf8K133tfU4zkmuE3sY"
     }
-}
-
+  }
 }
