@@ -52,8 +52,8 @@
     {
       "group": "Working with API",
       "pages": [
-        "api-documentation/authentication",  
-        "api-documentation/paymentMethods", 
+        "api-documentation/authentication",
+        "api-documentation/paymentMethods",
         "api-documentation/errors"
       ]
     },
@@ -94,5 +94,8 @@
       "method": "basic",
       "name": "[usernameName]:[passwordName]"
     }
+  },
+  "metadata": {
+    "og:image": "/images/xPay_dashboard.png"
   }
 }
