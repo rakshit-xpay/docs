@@ -1,0 +1,22 @@
+---
+title: Payment Statuses
+---
+
+The **xIntentId** tracks the lifecycle of a payment intent. Below is a table outlining the different statuses that an **xIntentId** can have during the payment process and what each status indicates.
+
+---
+
+| **Status**      | **Description**                                                                                                                                    |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CREATED`   | The payment intent has been successfully created, but no payment has been initiated yet.                                                           |
+| `INCOMPLETE` | The payment process was started, but it wasn't completed successfully (e.g., user abandoned the payment or there was an issue).                     |
+| `SUCCESS`     | The payment was processed successfully, and the transaction is complete.                                                                           |
+| `FAILED`    | The payment attempt failed due to various possible reasons (e.g., insufficient funds, declined by the issuer, or a technical error).               |
+| `REFUNDED`    | The payment was processed successfully but has since been refunded, either partially or fully, based on merchant or customer request.              |
+| `DISPUTED`    | The payment is under dispute, meaning the customer or merchant has raised a concern regarding the transaction, often leading to a chargeback claim. |
+| `DISPUTE_WON` | The dispute was resolved in favor of the merchant, meaning the chargeback claim has been settled successfully, and the funds remain with the merchant. |
+---
+
+<Note>
+  If you have further questions or require assistance, feel free to contact us at [hello@xpaycheckout.com](mailto:hello@xpaycheckout.com).
+</Note>

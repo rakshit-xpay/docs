@@ -59,6 +59,7 @@
       "pages": [
         "api-documentation/introduction",
         "api-documentation/authentication",
+        "api-documentation/paymentStatus",
         "api-documentation/errors",
         {
           "group": "API Endpoints",
