@@ -19,8 +19,9 @@ Here’s a list of the key APIs you can integrate with:
 | API Name                    | Endpoint                              | Description                                             | Documentation                               |
 |-----------------------------|---------------------------------------|---------------------------------------------------------|-----------------------------------------------------|
 | **Create Intent**           | `/payments/create-intent`             | Initiates a payment intent with necessary transaction details. | [Create Intent API](/endpoint/xPayAPIs/create-intent) |
-| **Get Intent**              | `/payments/get-intent/{xIntentId}`   | Retrieves the status and details of a payment intent.   | [Get Intent API](/endpoint/xPayAPIs/get-intent)       |
-| **Payment Links**           | `link/merchant/generate-link`         | Generates a payment link for a specific amount.        | [Payment Links API](/endpoint/xPayAPIs/generate-link) |
+| **Get Intent**              | `/payments/get-intent/{xIntentId}`    | Retrieves the status and details of a payment intent.   | [Get Intent API](/endpoint/xPayAPIs/get-intent)       |
+| **Payment Links**           | `/link/merchant/generate-link`         | Generates a payment link for a specific amount.        | [Payment Links API](/endpoint/xPayAPIs/generate-link) |
+| **Refund**                  | `/payments/merchant/refund`            | Processes a refund for a specified payment intent.     | [Refund API](/endpoint/xPayAPIs/refund)|  
 | **Create Intent with Tax**  | `/payments/create-intent-with-tax`    | Initiates a payment intent including tax calculations.   | [Create Intent with Tax API](/endpoint/salesTaxAPIs/create-intent-with-tax) |
 | **Get Intent with Tax**     | `/payments/get-intent-with-tax/{xIntentId}` | Retrieves the status and tax details of a payment intent. | [Get Intent with Tax API](/endpoint/salesTaxAPIs/get-intent-with-tax) |
 
