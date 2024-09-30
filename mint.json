@@ -69,7 +69,8 @@
               "pages": [
                 "endpoint/xPayAPIs/create-intent",
                 "endpoint/xPayAPIs/get-intent",
-                "endpoint/xPayAPIs/generate-link"
+                "endpoint/xPayAPIs/generate-link",
+                "endpoint/xPayAPIs/refund"
               ]
             },
             {

@@ -96,6 +96,37 @@
         }
       }
     },
+    "/payments/merchant/refund": {
+      "post": {
+        "description": "The Refund APIs allow merchants to process refunds for previously captured payments",
+        "requestBody": {
+          "description": "Refund API",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/refund"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Refund API response"
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/link/merchant/generate-link": {
       "post": {
         "description": "This API can be used to generate payment links programmatically. Payments links are basically standalone webpages where your customer can make a one time payment. These do not need any integrations.",
@@ -397,6 +428,17 @@
           }
         }
       },
+      "refund": {
+        "required": ["xIntentId"],
+        "type": "object",
+        "properties": {
+          "xIntentId": {
+            "description": "Unique identifier of the intent",
+            "type": "string",
+            "example": "66f53a6e2097773e4f0112r3"
+          }
+        }
+      },
       "create-intent-with-tax": {
         "required": [
           "amount",
@@ -471,7 +513,7 @@
                     "type": "string",
                     "description": "Country of the customer",
                     "example": "United States"
-                  },                
+                  },
                   "postalCode": {
                     "type": "string",
                     "description": "Pincode of the customer",
