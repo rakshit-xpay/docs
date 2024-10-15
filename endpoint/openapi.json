@@ -241,6 +241,114 @@
           }
         }
       }
+    },
+    "/subscription/create": {
+      "post": {
+        "description": "",
+        "requestBody": {
+          "description": "Create Subscription",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create-subscription"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Create Subscription response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/create-subscription-response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscription/get-subscription/{subscriptionId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "66f53a6e2097773e4f0112c8"
+            },
+            "description": "Unique identifier of the subscription"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with subscription details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get-subscription-response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request, xSubscriptionId not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscription/merchant/cancel": {
+      "post": {
+        "description": "",
+        "requestBody": {
+          "description": "Cancel Subscription",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cancel-subscription"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cancel Subscription response"
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -678,6 +786,200 @@
           "errorDescription": {
             "type": "string",
             "example": "Failed to read request"
+          }
+        }
+      },
+      "create-subscription": {
+        "required": [
+          "amount",
+          "currency",
+          "customerDetails",
+          "callbackUrl",
+          "interval",
+          "intervalCount"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          },
+          "currency": {
+            "description": "Three letter abbreviation of the currency",
+            "type": "string",
+            "enum": ["USD"],
+            "example": "USD"
+          },
+          "receiptId": {
+            "description": "Your identifier of the order",
+            "type": "string",
+            "example": "order123"
+          },
+          "customerDetails": {
+            "description": "Details about the customer",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "Customer's name",
+                "type": "string",
+                "example": "John Doe"
+              },
+              "email": {
+                "description": "Customer's email address",
+                "type": "string",
+                "example": "john.doe@example.com"
+              },
+              "contactNumber": {
+                "description": "Customer's contact number including country code",
+                "type": "string",
+                "example": "9123456789"
+              },
+              "customerAddress": {
+                "type": "object",
+                "properties": {
+                  "addressLine1": {
+                    "type": "string",
+                    "description": "Address Line 1 of the customer",
+                    "example": "123 Main St"
+                  },
+                  "addressLine2": {
+                    "type": "string",
+                    "description": "Address Line 2 of the customer",
+                    "example": "Apt 101"
+                  },
+                  "city": {
+                    "type": "string",
+                    "description": "City of the customer",
+                    "example": "Los Angeles"
+                  },
+                  "state": {
+                    "type": "string",
+                    "description": "State of the customer",
+                    "example": "California"
+                  },
+                  "country": {
+                    "type": "string",
+                    "description": "Country of the customer",
+                    "example": "United States"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "description": "Pincode of the customer",
+                    "example": "123456"
+                  }
+                }
+              }
+            }
+          },
+          "callbackUrl": {
+            "description": "The URL we will callback to with the order status once it finishes.",
+            "type": "string",
+            "example": "https://example.com/callback"
+          },
+          "interval": {
+            "type": "string",
+            "description": "The interval of the subscription",
+            "enum": ["DAY", "WEEK", "MONTH", "YEAR"],
+            "example": "MONTH"
+          },
+          "intervalCount": {
+            "type": "integer",
+            "description": "The interval count of the subscription",
+            "format": "int64",
+            "example": 2
+          }
+        }
+      },
+      "create-subscription-response": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "type": "string",
+            "description": "Unique identifier of the subscription",
+            "example": "66f53a6e2097773e4f0112c8"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the subscription was created",
+            "example": "2024-09-26T10:41:50.472+00:00"
+          },
+          "fwdUrl": {
+            "type": "string",
+            "description": "The URL to redirect the customer to the xPay payment gateway for payment.",
+            "example": "https://pay.xpaycheckout.com/?subscription_id=67f53a6e2097773e4f0112c8"
+          }
+        }
+      },
+      "get-subscription-response": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "type": "string",
+            "description": "Unique identifier of the subscription",
+            "example": "66f53a6e2097773e4f0112c8"
+          },
+          "interval": {
+            "type": "string",
+            "enum": ["DAY", "WEEK", "MONTH", "YEAR"],
+            "example": "MONTH"
+          },
+          "intervalCount": {
+            "type": "string",
+            "format": "int64",
+            "example": 2
+          },
+          "currency": {
+            "type": "string",
+            "enum": ["USD"],
+            "example": "USD"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          },
+          "presentmentCurrency": {
+            "type": "string",
+            "description": "The currency that the customer paid in",
+            "example": "USD"
+          },
+          "mode": {
+            "type": "string",
+            "description": "The mode in which the transaction was made (e.g., TEST or LIVE)",
+            "enum": ["TEST", "LIVE"],
+            "example": "TEST"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the subscription was created",
+            "example": "2024-09-26T10:41:50.472+00:00"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the subscription",
+            "enum": ["ACTIVE", "INACTIVE", "INCOMPLETE", "CREATED", "CANCELED"],
+            "example": "CREATED"
+          }
+        }
+      },
+      "cancel-subscription": {
+        "required": ["xSubscriptionId", "mode"],
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "description": "Unique identifier of the subscription",
+            "type": "string",
+            "example": "66f53a6e2097773e4f0112c8"
+          },
+          "mode": {
+            "description": "The mode in which the transaction was made (e.g., TEST or LIVE)",
+            "type": "string",
+            "enum": ["TEST", "LIVE"],
+            "example": "TEST"
           }
         }
       }

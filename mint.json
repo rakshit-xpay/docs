@@ -65,20 +65,25 @@
           "group": "API Endpoints",
           "pages": [
             {
-              "group": "xPay API",
+              "group": "Payments",
               "pages": [
                 "endpoint/xPayAPIs/create-intent",
                 "endpoint/xPayAPIs/get-intent",
-                "endpoint/xPayAPIs/generate-link",
+
                 "endpoint/xPayAPIs/refund"
               ]
             },
             {
-              "group": "Sales tax APIs",
+              "group": "Subscriptions",
               "pages": [
-                "endpoint/salesTaxAPIs/create-intent-with-tax",
-                "endpoint/salesTaxAPIs/get-intent-with-tax"
+                "endpoint/xPayAPIs/create-subscription",
+                "endpoint/xPayAPIs/get-subscription",
+                "endpoint/xPayAPIs/cancel"
               ]
+            },
+            {
+              "group": "Payment Links",
+              "pages": ["endpoint/xPayAPIs/generate-link"]
             }
           ]
         }
