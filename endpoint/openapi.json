@@ -871,7 +871,8 @@
                   }
                 }
               }
-            }
+            },
+            "required": ["name", "email"]
           },
           "callbackUrl": {
             "description": "The URL we will callback to with the order status once it finishes.",
@@ -880,13 +881,13 @@
           },
           "interval": {
             "type": "string",
-            "description": "The interval of the subscription",
+            "description": "The interval group between subscriptions.",
             "enum": ["DAY", "WEEK", "MONTH", "YEAR"],
             "example": "MONTH"
           },
           "intervalCount": {
             "type": "integer",
-            "description": "The interval count of the subscription",
+            "description": "The number of intervals between subscription billings. For example, `interval = MONTH` and `intervalCount = 3` bills every 3 months.",
             "format": "int64",
             "example": 2
           }
@@ -927,7 +928,7 @@
             "example": "MONTH"
           },
           "intervalCount": {
-            "type": "string",
+            "type": "integer",
             "format": "int64",
             "example": 2
           },
@@ -967,19 +968,13 @@
         }
       },
       "cancel-subscription": {
-        "required": ["xSubscriptionId", "mode"],
+        "required": ["subscriptionId"],
         "type": "object",
         "properties": {
           "subscriptionId": {
             "description": "Unique identifier of the subscription",
             "type": "string",
             "example": "66f53a6e2097773e4f0112c8"
-          },
-          "mode": {
-            "description": "The mode in which the transaction was made (e.g., TEST or LIVE)",
-            "type": "string",
-            "enum": ["TEST", "LIVE"],
-            "example": "TEST"
           }
         }
       }

@@ -60,6 +60,7 @@
         "api-documentation/introduction",
         "api-documentation/authentication",
         "api-documentation/paymentStatus",
+        "api-documentation/SubscriptionStatus",
         "api-documentation/errors",
         {
           "group": "API Endpoints",
