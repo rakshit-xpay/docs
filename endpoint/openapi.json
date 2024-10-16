@@ -758,15 +758,15 @@
             ],
             "example": "CREATED"
           },
-          "xIntentId": {
-            "type": "string",
-            "description": "Unique identifier of the intent",
-            "example": "66f53a6e2097773e4f0112c8"
-          },
           "fwdUrl": {
             "type": "string",
             "description": "The URL to redirect the customer to the xPay payment gateway for payment.",
             "example": "https://pay.xpaycheckout.com/?xpay_intent_id=67f53a6e2097773e4f0112c8"
+          },
+          "xIntentId": {
+            "type": "string",
+            "description": "Unique identifier of the intent",
+            "example": "66f53a6e2097773e4f0112c8"
           }
         }
       },
