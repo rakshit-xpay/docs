@@ -25,13 +25,13 @@ This diagram illustrates the integration flow for processing payments through xP
     `xIntentId`. This identifier will be used to track the payment throughout the
     process.
   </Step>
-  <Step title="Forward Intent ID (Merchant Server → Merchant Frontend)">
-    The Merchant Server forwards the **xIntentId** to the Merchant Frontend, which
+  <Step title="Forward Intent data (Merchant Server → Merchant Frontend)">
+    The Merchant Server forwards the `fwdUrl` to the Merchant Frontend, which
     is responsible for managing the user interface that initiates the payment.
   </Step>
   <Step title="Redirect to xPay Client (Merchant Frontend → xPay Client)">
     Upon user interaction (e.g., clicking `Pay Now`), the Merchant Frontend
-    redirects the customer to the xPay Client along with the **xIntentId**. This
+    redirects the customer to the xPay Client by using the `fwdUrl`. This
     redirection allows xPay to handle the actual payment process, presenting the
     user with various payment options and methods. See all the methods here [Payment Methods](/paymentMethods)
   </Step>

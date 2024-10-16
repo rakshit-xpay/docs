@@ -5,7 +5,7 @@ description: Discover how to integrate xPay’s payment flow into your website u
 
 <Steps>
     <Step title="Initiate Payment Intent (Merchant Server → xPay Server)">
-        Start the transaction by making a **create-intent** POST request to xPay's API from the Merchant Server, which returns an `xIntentId` in the response. 
+        Start the transaction by making a **create-intent** POST request to xPay's API from the Merchant Server, which returns an `fwdUrl` in the response. 
         See [create-intent API](/endpoint/xPayAPIs/create-intent) for details.
         <Note>
             The **callbackUrl** string in the **create-intent** request should be configured to your client-side page responsible for managing the redirect from xPay checkout following a payment attempt.
@@ -15,20 +15,16 @@ description: Discover how to integrate xPay’s payment flow into your website u
         Once the payment intent is created, the xPay Server will respond with an `xIntentId`, which is used to track the payment status throughout the transaction.
         <Tip>The Merchant Server should log or store this identifier for future reference.</Tip>
     </Step>
-    <Step title="Forward Intent Id to Merchant Frontend (Merchant Server → Merchant Frontend)">
-        The Merchant Server forwards the `xIntentId` to the Merchant Frontend, enabling it to manage user interactions related to the payment.
+    <Step title="Forward Intent data to Merchant Frontend (Merchant Server → Merchant Frontend)">
+        The Merchant Server forwards the intent data with `fwdUrl` to the Merchant Frontend, enabling it to manage user interactions related to the payment.
         <Info>Ensure the frontend is ready to handle the payment initiation process.</Info>
     </Step>
     <Step title="Redirect to xPay Checkout (Merchant Frontend → xPay Client)">
-        Redirect the user to xPay’s checkout page, including the necessary query parameters:
-        Initiate the payment by redirecting to the xPay Checkout URL: `https://pay.xpaycheckout.com`.
-
-        <Note>**xpay_intent_id** should be set to the value of **xIntentId** obtained in Step 1.</Note>
+        Redirect the user to xPay’s checkout page to initiate the payment using the `fwdUrl`.
 
         ```javascript JavaScript
         const redirectToCheckout = () => {
-            const url = new URL("https://pay.xpaycheckout.com");
-            url.searchParams.append("xpay_intent_id", xIntentId);
+            const url = new URL(fwdUrl); // fwdUrl received from your server after creating an intent
             window.open(url.href).focus();
         };
         ```
@@ -47,7 +43,7 @@ description: Discover how to integrate xPay’s payment flow into your website u
             if(intent.status === "SUCCESS") {
                 // redirect to your payment success page
             } else {
-                // redirect to your payment success page
+                // redirect to your payment failure page
             }
         };
         ```
