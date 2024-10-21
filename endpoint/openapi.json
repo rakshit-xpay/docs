@@ -838,7 +838,7 @@
           "customerDetails",
           "callbackUrl",
           "interval",
-          "intervalCount".
+          "intervalCount",
           "cycleCount"
         ],
         "type": "object",
