@@ -70,8 +70,8 @@
               "pages": [
                 "endpoint/xPayAPIs/create-intent",
                 "endpoint/xPayAPIs/get-intent",
-
-                "endpoint/xPayAPIs/refund"
+                "endpoint/xPayAPIs/refund",
+                "endpoint/xPayAPIs/cancel-payment"
               ]
             },
             {
