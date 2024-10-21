@@ -349,6 +349,43 @@
           }
         }
       }
+    }, 
+    "/subscription/link/merchant/generate-link": {
+        "post": {
+        "requestBody": {
+          "description": "Generate Subscription Link",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/subscription-link"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Generate Subscription Link",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/subscription-link-response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -879,6 +916,11 @@
             },
             "required": ["name", "email"]
           },
+          "description": {
+            "type": "string",
+            "description": "Description of the order, if any",
+            "example": "Order for 2 items"
+          },
           "callbackUrl": {
             "description": "The URL we will callback to with the order status once it finishes.",
             "type": "string",
@@ -893,6 +935,12 @@
           "intervalCount": {
             "type": "integer",
             "description": "The number of intervals between subscription billings. For example, `interval = MONTH` and `intervalCount = 3` bills every 3 months.",
+            "format": "int64",
+            "example": 2
+          },
+          "cycleCount": {
+            "type": "integer",
+            "description": "The number of billing cycles for which the subscription will renew before ending.",
             "format": "int64",
             "example": 2
           }
@@ -937,6 +985,12 @@
             "format": "int64",
             "example": 2
           },
+          "cycleCount": {
+            "type": "integer",
+            "description": "The number of billing cycles for which the subscription will renew before ending.",
+            "format": "int64",
+            "example": 2
+          },
           "currency": {
             "type": "string",
             "enum": ["USD"],
@@ -969,6 +1023,11 @@
             "description": "The status of the subscription",
             "enum": ["ACTIVE", "INACTIVE", "INCOMPLETE", "CREATED", "CANCELED"],
             "example": "CREATED"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the order, if any",
+            "example": "Order for 2 items"
           }
         }
       },
@@ -980,6 +1039,116 @@
             "description": "Unique identifier of the subscription",
             "type": "string",
             "example": "66f53a6e2097773e4f0112c8"
+          }
+        }
+      }, 
+      "subscription-link": {
+        "required": ["amount", "currency", "customerDetails", "expiryDate", "interval", "intervalCount", "cycleCount"],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          },
+          "currency": {
+            "description": "Three letter abbreviation of the currency",
+            "type": "string",
+            "enum": ["USD"],
+            "example": "USD"
+          },
+          "receiptId": {
+            "description": "Your identifier of the order",
+            "type": "string",
+            "example": "order123"
+          },
+          "customerDetails": {
+            "description": "Details about the customer",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "Customer's name",
+                "type": "string",
+                "example": "John Doe"
+              },
+              "email": {
+                "description": "Customer's email address",
+                "type": "string",
+                "example": "john.doe@example.com"
+              },
+              "contactNumber": {
+                "description": "Customer's contact number including country code",
+                "type": "integer",
+                "format": "int64",
+                "example": 9123456789
+              },
+              "customerAddress": {
+                "type": "object",
+                "properties": {
+                  "addressLine1": {
+                    "type": "string",
+                    "description": "Address Line 1 of the customer",
+                    "example": "123 Main St"
+                  },
+                  "addressLine2": {
+                    "type": "string",
+                    "description": "Address Line 2 of the customer",
+                    "example": "Apt 101"
+                  },
+                  "city": {
+                    "type": "string",
+                    "description": "City of the customer",
+                    "example": "Los Angeles"
+                  },
+                  "state": {
+                    "type": "string",
+                    "description": "State of the customer",
+                    "example": "California"
+                  },
+                  "country": {
+                    "type": "string",
+                    "description": "Country of the customer",
+                    "example": "United States"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "description": "Pincode of the customer",
+                    "example": "123456"
+                  }
+                }
+              }
+            },
+            "required": ["name", "email"]
+          },
+          "description": {
+            "description": "The description of the order, if any",
+            "type": "string",
+            "example": "Order for 2 items"
+          },
+          "expiryDate": {
+            "description": "Timestamp in epoch milliseconds, indicating the expiration time of the link",
+            "type": "integer",
+            "format": "int64",
+            "example": 32526868154000
+          },
+          "interval": {
+            "type": "string",
+            "description": "The interval group between subscriptions.",
+            "enum": ["DAY", "WEEK", "MONTH", "YEAR"],
+            "example": "MONTH"
+          },
+          "intervalCount": {
+            "type": "integer",
+            "description": "The number of intervals between subscription billings. For example, `interval = MONTH` and `intervalCount = 3` bills every 3 months.",
+            "format": "int64",
+            "example": 2
+          }, 
+          "cycleCount": {
+            "type": "integer",
+            "description": "The number of billing cycles for which the subscription will renew before ending.",
+            "format": "int64",
+            "example": 2
           }
         }
       }

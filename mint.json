@@ -79,7 +79,8 @@
               "pages": [
                 "endpoint/xPayAPIs/create-subscription",
                 "endpoint/xPayAPIs/get-subscription",
-                "endpoint/xPayAPIs/cancel"
+                "endpoint/xPayAPIs/cancel",
+                "endpoint/xPayAPIs/subscription-link"
               ]
             },
             {
