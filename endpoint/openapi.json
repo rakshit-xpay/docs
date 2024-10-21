@@ -386,7 +386,38 @@
           }
         }
       }
-    }
+    },
+    "/payments/cancel/{xIntentId}": {
+      "post": {
+        "description": "",
+        "requestBody": {
+          "description": "Cancel Payment",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cancel-payment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cancel Payment response"
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    } 
   },
   "components": {
     "schemas": {
@@ -992,6 +1023,12 @@
             "format": "int64",
             "example": 2
           },
+          "remainingCycleCount": {
+          "type": "integer",
+          "description": "The number of billing cycles remaining for the subscription.",
+          "format": "int64",
+          "example": 2
+          }, 
           "currency": {
             "type": "string",
             "enum": ["USD"],
@@ -1038,6 +1075,17 @@
         "properties": {
           "subscriptionId": {
             "description": "Unique identifier of the subscription",
+            "type": "string",
+            "example": "66f53a6e2097773e4f0112c8"
+          }
+        }
+      },
+      "cancel-payment": {
+        "required": ["xIntentId"],
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "description": "Unique identifier of the payment",
             "type": "string",
             "example": "66f53a6e2097773e4f0112c8"
           }
