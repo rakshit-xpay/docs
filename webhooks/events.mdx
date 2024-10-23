@@ -1,0 +1,17 @@
+---
+title: "Webhook Events"
+description: "Understand the different webhook events triggered by xPay during the payment process."
+---
+
+xPay triggers various webhook events to keep you informed about the status of payment intents. Below is a list of the events you may encounter and their descriptions.
+
+| **Event Name**           | **Event Type**            | **Description**                                                                                     |
+|--------------------------|---------------------------|-----------------------------------------------------------------------------------------------------|
+| **Intent Created**        | `intent.created`          | This event is triggered when a new payment intent is successfully created.                           |
+| **Intent Incomplete**     | `intent.incomplete`       | This event occurs when a payment intent is created, but the payment process is not successfully completed. |
+| **Intent Success**        | `intent.success`          | This event indicates that the payment intent has been successfully processed and the payment is complete.  |
+| **Intent Failed**         | `intent.failed`           | This event is triggered when the payment process for a given intent fails due to an error or insufficient funds. |
+
+These events are designed to help you track and respond to changes in payment status, ensuring a smooth integration with xPay’s payment system. Make sure to handle each event appropriately within your webhook implementation.
+
+For more details on how to handle webhooks and event security, refer to the [Webhooks Introduction](/webhooks/introduction).
