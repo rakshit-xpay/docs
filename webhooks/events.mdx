@@ -12,6 +12,26 @@ xPay triggers various webhook events to keep you informed about the status of pa
 | **Intent Success**        | `intent.success`          | This event indicates that the payment intent has been successfully processed and the payment is complete.  |
 | **Intent Failed**         | `intent.failed`           | This event is triggered when the payment process for a given intent fails due to an error or insufficient funds. |
 
+### Sample Response
+```json
+{
+  "eventId": "6717b96ba75cc81f88819e41",
+  "eventType": "intent.success",
+  "eventTime": 1729608043615,
+  "intentId": "6717b96ba75cc81f88819e40",
+  "status": "SUCCESS",
+  "amount": 5000,
+  "currency": "USD"
+}
+```
+
+---
+
+### Response Feilds
+
+<ResponseField name="eventId" type="string"> A unique identifier for this specific event. This ensures that each event can be tracked and processed individually. </ResponseField> <ResponseField name="eventType" type="string"> Describes the type of event. In this case, it signifies that a payment intent has succeeded. </ResponseField> <ResponseField name="eventTime" type="integer"> The timestamp when the event was generated, typically in milliseconds since the Unix epoch (January 1, 1970). This value can be used to track when the event occurred. </ResponseField> <ResponseField name="intentId" type="string"> A unique identifier for the specific payment intent. This ID ties the event back to a particular transaction or payment process that triggered the event. </ResponseField> <ResponseField name="status" type="string"> Represents the current status of the payment intent. In this case, it indicates that the payment was successful. </ResponseField> <ResponseField name="amount" type="integer"> The amount involved in the transaction, typically expressed in the smallest unit of the currency. Here, 5000 represents 50.00 USD (because USD typically uses two decimal places). </ResponseField> <ResponseField name="currency" type="string"> The currency used for the transaction. In this case, it is United States Dollars (USD). </ResponseField> 
+
+
 These events are designed to help you track and respond to changes in payment status, ensuring a smooth integration with xPay’s payment system. Make sure to handle each event appropriately within your webhook implementation.
 
 For more details on how to handle webhooks and event security, refer to the [Webhooks Introduction](/webhooks/introduction).
