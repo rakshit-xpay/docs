@@ -95,7 +95,21 @@
       "group": "Webhooks",
       "pages": [
         "webhooks/introduction",
-        "webhooks/events"
+        {
+          "group": "Webhooks events",
+          "pages": [
+            "webhooks/events",
+            {
+              "group": "Intent Events",
+              "pages": [
+                "webhooks/intentEvents/created",
+                "webhooks/intentEvents/incompleted",
+                "webhooks/intentEvents/success",
+                "webhooks/intentEvents/failed"
+              ]
+            }
+          ]
+        }
       ]
     },
     {
