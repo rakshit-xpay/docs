@@ -57,7 +57,7 @@
         }
       }
     },
-    "/payments/get-intent/{xIntentId}": {
+    "/payments/v2/get-intent/{xIntentId}": {
       "get": {
         "description": "You can use this API to get the status of the transaction that corresponds to a particular intent. This API also returns the masked card info of the payer (if it's a card transaction) and the transaction lifecycle, which includes multiple attempts, failures, and other checkpoints during a transaction.",
         "parameters": [
@@ -349,9 +349,9 @@
           }
         }
       }
-    }, 
+    },
     "/subscription/link/merchant/generate-link": {
-        "post": {
+      "post": {
         "requestBody": {
           "description": "Generate Subscription Link",
           "content": {
@@ -417,7 +417,7 @@
           }
         }
       }
-    } 
+    }
   },
   "components": {
     "schemas": {
@@ -731,6 +731,11 @@
             "description": "Three-letter currency code",
             "example": "USD"
           },
+          "presentmentCurrency": {
+            "type": "string",
+            "description": "The currency that the customer paid in",
+            "example": "USD"
+          },
           "receiptId": {
             "type": "string",
             "description": "Your identifier for the order",
@@ -825,11 +830,6 @@
               "DISPUTE_WON"
             ],
             "example": "CREATED"
-          },
-          "fwdUrl": {
-            "type": "string",
-            "description": "The URL to redirect the customer to the xPay payment gateway for payment.",
-            "example": "https://pay.xpaycheckout.com/?xpay_intent_id=67f53a6e2097773e4f0112c8"
           },
           "xIntentId": {
             "type": "string",
@@ -1009,11 +1009,13 @@
           },
           "interval": {
             "type": "string",
+            "description": "The interval group between subscriptions.",
             "enum": ["DAY", "WEEK", "MONTH", "YEAR"],
             "example": "MONTH"
           },
           "intervalCount": {
             "type": "integer",
+            "description": "The number of intervals between subscription billings. For example, `interval = MONTH` and `intervalCount = 3` bills every 3 months.",
             "format": "int64",
             "example": 2
           },
@@ -1024,18 +1026,20 @@
             "example": 2
           },
           "remainingCycleCount": {
-          "type": "integer",
-          "description": "The number of billing cycles remaining for the subscription.",
-          "format": "int64",
-          "example": 2
-          }, 
+            "type": "integer",
+            "description": "The number of billing cycles remaining for the subscription.",
+            "format": "int64",
+            "example": 2
+          },
           "currency": {
             "type": "string",
+            "description": "Three-letter currency code",
             "enum": ["USD"],
             "example": "USD"
           },
           "amount": {
             "type": "integer",
+            "description": "The amount in lowest count unit (e.g., cents for USD)",
             "format": "int64",
             "example": 100
           },
@@ -1059,7 +1063,13 @@
           "status": {
             "type": "string",
             "description": "The status of the subscription",
-            "enum": ["ACTIVE", "INACTIVE", "INCOMPLETE", "CREATED", "CANCELED"],
+            "enum": [
+              "ACTIVE",
+              "INACTIVE",
+              "INCOMPLETE",
+              "CREATED",
+              "CANCELLED"
+            ],
             "example": "CREATED"
           },
           "description": {
@@ -1090,9 +1100,17 @@
             "example": "66f53a6e2097773e4f0112c8"
           }
         }
-      }, 
+      },
       "subscription-link": {
-        "required": ["amount", "currency", "customerDetails", "expiryDate", "interval", "intervalCount", "cycleCount"],
+        "required": [
+          "amount",
+          "currency",
+          "customerDetails",
+          "expiryDate",
+          "interval",
+          "intervalCount",
+          "cycleCount"
+        ],
         "type": "object",
         "properties": {
           "amount": {
@@ -1192,7 +1210,7 @@
             "description": "The number of intervals between subscription billings. For example, `interval = MONTH` and `intervalCount = 3` bills every 3 months.",
             "format": "int64",
             "example": 2
-          }, 
+          },
           "cycleCount": {
             "type": "integer",
             "description": "The number of billing cycles for which the subscription will renew before ending.",
