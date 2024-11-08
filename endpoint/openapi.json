@@ -426,15 +426,14 @@
         "type": "object",
         "properties": {
           "amount": {
-            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents (The minimum amount should be greater than 1 USD)",
             "type": "integer",
             "format": "int64",
             "example": 100
           },
           "currency": {
-            "description": "Three letter abbreviation of the currency",
+            "description": "Three letter abbreviation of the currency. Refer [supported currencies](../../../supportedCurrencies)",
             "type": "string",
-            "enum": ["USD"],
             "example": "USD"
           },
           "receiptId": {
@@ -517,15 +516,14 @@
         "type": "object",
         "properties": {
           "amount": {
-            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents (The minimum amount should be greater than 1 USD)",
             "type": "integer",
             "format": "int64",
             "example": 100
           },
           "currency": {
-            "description": "Three letter abbreviation of the currency",
+            "description": "Three letter abbreviation of the currency. Refer [supported currencies](../../../supportedCurrencies)",
             "type": "string",
-            "enum": ["USD"],
             "example": "USD"
           },
           "receiptId": {
@@ -626,15 +624,14 @@
         "type": "object",
         "properties": {
           "amount": {
-            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents (The minimum amount should be greater than 1 USD)",
             "type": "integer",
             "format": "int64",
             "example": 100
           },
           "currency": {
-            "description": "Three letter abbreviation of the currency",
+            "description": "Three letter abbreviation of the currency. (Refer [supported currencies](../../../supportedCurrencies))",
             "type": "string",
-            "enum": ["USD"],
             "example": "USD"
           },
           "receiptId": {
@@ -875,15 +872,14 @@
         "type": "object",
         "properties": {
           "amount": {
-            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents (The minimum amount should be greater than 1 USD)",
             "type": "integer",
             "format": "int64",
             "example": 100
           },
           "currency": {
-            "description": "Three letter abbreviation of the currency",
+            "description": "Three letter abbreviation of the currency. Refer [supported currencies](../../../supportedCurrencies)",
             "type": "string",
-            "enum": ["USD"],
             "example": "USD"
           },
           "receiptId": {
@@ -1034,7 +1030,6 @@
           "currency": {
             "type": "string",
             "description": "Three-letter currency code",
-            "enum": ["USD"],
             "example": "USD"
           },
           "amount": {
@@ -1094,7 +1089,7 @@
         "required": ["xIntentId"],
         "type": "object",
         "properties": {
-          "subscriptionId": {
+          "xIntentId": {
             "description": "Unique identifier of the payment",
             "type": "string",
             "example": "66f53a6e2097773e4f0112c8"
@@ -1114,15 +1109,14 @@
         "type": "object",
         "properties": {
           "amount": {
-            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents",
+            "description": "The amount in lowest count unit. e.g.: For USD 1, amount is 100 representing 100 cents (The minimum amount should be greater than 1 USD)",
             "type": "integer",
             "format": "int64",
             "example": 100
           },
           "currency": {
-            "description": "Three letter abbreviation of the currency",
+            "description": "Three letter abbreviation of the currency. Refer [supported currencies](../../../supportedCurrencies)",
             "type": "string",
-            "enum": ["USD"],
             "example": "USD"
           },
           "receiptId": {
