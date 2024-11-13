@@ -1,0 +1,56 @@
+---
+title: Integration Process
+description: Learn how to integrate xPay’s subscription payment flow into your website using xPay’s payment gateway APIs.
+---
+
+<Steps>
+    <Step title="Initiate Subscription Intent (Merchant Server → xPay Server)">
+        Begin by making a **create subscription** POST request to xPay's API from the Merchant Server, which returns an `fwdUrl` for initiating the subscription process.
+        See [Create Subscription API](/endpoint/xPayAPIs/create-subscription) for details.
+        <Note>
+            The **callbackUrl** in the **create subscription** request should be set to your client-side page that handles the redirect after a subscription attempt.
+        </Note>
+    </Step>
+    <Step title="Receive Subscription Intent Confirmation (xPay Server → Merchant Server)">
+        Once the subscription intent is created, the xPay Server responds with a `subscriptionId`. This identifier is crucial for tracking the status of the subscription.
+        <Tip>Ensure that the Merchant Server logs or securely stores this identifier for further processing and verification.</Tip>
+    </Step>
+    <Step title="Forward Intent Data to Merchant Frontend (Merchant Server → Merchant Frontend)">
+        The Merchant Server should pass the `fwdUrl` along with the subscription details to the Merchant Frontend, preparing it to manage user interactions related to the subscription.
+        <Info>Verify that the frontend is set up to handle the subscription initiation seamlessly.</Info>
+    </Step>
+    <Step title="Redirect to xPay Subscription Checkout (Merchant Frontend → xPay Client)">
+        Use the `fwdUrl` to redirect users to xPay’s checkout page to complete the subscription.
+
+        ```javascript JavaScript
+        const redirectToSubscriptionCheckout = () => {
+            const url = new URL(fwdUrl); // fwdUrl received from your server after creating a subscription intent
+            window.open(url.href).focus();
+        };
+        ```
+    </Step>
+    <Step title="Handle a Redirect on the callbackUrl (xPay Client → Merchant Frontend)">
+        - Create a client-side page to handle the redirect and display the subscription status.
+        - After the process, users will be redirected to the **callbackUrl** with the query parameter **subscription_id**.
+        - The Merchant Frontend contacts the Merchant Server, which invokes the **Get Subscription** GET request to fetch the status and metadata for the specified intent. See [Get Subscription API](/endpoint/xPayAPIs/get-subscription) for details.
+
+        ```javascript JavaScript
+        const onSubscriptionPageLoad = async () => {
+            const url = new URL(window.location.href);
+            const subscriptionId = url.searchParams.get("subscription_id");
+
+            const subscriptionIntent = await getSubscriptionIntentStatus(subscriptionId, metadata); // From the Merchant Server
+            if(subscriptionIntent.status === "ACTIVE") {
+                // redirect to your subscription success page
+            } else {
+                // redirect to your subscription failure page
+            }
+        };
+        ```
+    </Step>
+
+</Steps>
+
+---
+
+By following these steps, you can integrate xPay’s subscription gateway into your site, ensuring a secure and automated subscription process for your users. Explore [Working with our APIs](/api-documentation/introduction) to learn more about specific endpoints and complete the integration.

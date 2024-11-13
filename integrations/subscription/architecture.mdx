@@ -1,0 +1,42 @@
+---
+title: Architecture
+description: Below is the Architecture of your xPay integration for subscription-based payments.
+---
+
+<Frame caption="How to handle subscriptions?">
+  <img className="block dark:hidden" src="/images/Subscription-Architecture-Light.png" alt="Subscription Architecture Light" />
+  <img className="hidden dark:block" src="/images/Subscription-Architecture-Dark.png" alt="Subscription Architecture Dark" />
+</Frame>
+
+### xPay Subscription Flow Architecture
+
+This diagram illustrates the integration flow for handling subscriptions through xPay. The architecture involves three key components: the **Merchant Server**, **Merchant Frontend**, and **xPay’s Server and Client systems**. Here's a step-by-step breakdown of the subscription process:
+
+<Steps>
+  <Step title="Create Subscription Intent (Merchant Server → xPay Server)">
+    The subscription process begins when the Merchant Server initiates a request to the xPay Server to create a subscription intent. This intent includes subscription details such as the billing cycle, amount, and currency. See more in [xPay Subscription APIs](/endpoint/xPayAPIs/create-subscription).
+  </Step>
+  <Step title="Receive Subscription Intent (xPay Server → Merchant Server)">
+    Once the subscription intent is successfully created, the xPay Server responds to the Merchant Server with a unique `subscriptionId`. This identifier is used to track the subscription throughout its lifecycle.
+  </Step>
+  <Step title="Forward Intent Data (Merchant Server → Merchant Frontend)">
+    The Merchant Server forwards the `fwdUrl` and `subscriptionId` to the Merchant Frontend, which is responsible for managing the user interface that initiates the subscription.
+  </Step>
+  <Step title="Redirect to xPay Client (Merchant Frontend → xPay Client)">
+    When the user interacts with the subscription interface (e.g., clicking `Subscribe`), the Merchant Frontend redirects the customer to the xPay Client using the `fwdUrl`. xPay handles the subscription flow, presenting various payment and subscription options.
+  </Step>
+  <Step title="Process Subscription & Return Metadata (xPay Client → Merchant Frontend)">
+    After processing, the xPay Client redirects the user back to the Merchant Frontend, providing the **subscriptionId** and any relevant metadata.
+
+    <Tip>Now, you can verify the subscription status by querying your server, which will communicate with xPay's server using the **subscriptionId**.</Tip>
+  </Step>
+</Steps>
+
+### Key Components
+
+- **Merchant Server**: Handles backend operations such as creating subscription intents and processing the `subscriptionId` received from xPay.
+- **Merchant Frontend**: Manages the user interface, enabling users to start subscriptions and receive feedback on their status.
+- **xPay Server**: Generates the subscription intent and returns the `subscriptionId` to the Merchant Server.
+- **xPay Client**: Oversees the user's subscription process, providing them with options and returning transaction metadata after the subscription is set up.
+
+This flow ensures a streamlined, secure, and effective integration for handling subscriptions with xPay. Each step is designed for clarity, reliable processing, and a seamless experience for developers and users alike.

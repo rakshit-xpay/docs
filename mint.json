@@ -49,9 +49,21 @@
     {
       "group": "Integration",
       "pages": [
-        "integrations/architecture",
         "integrations/getyourkeys",
-        "integrations/integrationProcess"
+        {
+          "group": "One Time Payment",
+          "pages": [
+            "integrations/oneTimePayment/architecture",
+            "integrations/oneTimePayment/integrationProcess"
+          ]
+        },
+        {
+          "group": "Subscription",
+          "pages": [
+            "integrations/subscription/architecture",
+            "integrations/subscription/integrationProcess"
+          ]
+        }
       ]
     },
     {
