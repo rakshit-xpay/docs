@@ -119,6 +119,16 @@
                 "webhooks/intentEvents/success",
                 "webhooks/intentEvents/failed"
               ]
+            },
+            {
+              "group": "Subscription Events",
+              "pages": [
+                "webhooks/subscriptionsEvents/created",
+                "webhooks/subscriptionsEvents/active",
+                "webhooks/subscriptionsEvents/cycle_charged",
+                "webhooks/subscriptionsEvents/inactive",
+                "webhooks/subscriptionsEvents/completed"
+              ]
             }
           ]
         }
