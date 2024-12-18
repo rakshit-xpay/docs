@@ -117,7 +117,8 @@
                 "webhooks/intentEvents/created",
                 "webhooks/intentEvents/incompleted",
                 "webhooks/intentEvents/success",
-                "webhooks/intentEvents/failed"
+                "webhooks/intentEvents/failed",
+                "webhooks/intentEvents/refunded"
               ]
             },
             {
@@ -127,7 +128,8 @@
                 "webhooks/subscriptionsEvents/active",
                 "webhooks/subscriptionsEvents/cycle_charged",
                 "webhooks/subscriptionsEvents/inactive",
-                "webhooks/subscriptionsEvents/completed"
+                "webhooks/subscriptionsEvents/completed",
+                "webhooks/subscriptionsEvents/canceled"
               ]
             }
           ]

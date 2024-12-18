@@ -1,0 +1,72 @@
+---
+title: "Canceled"
+description: "This event is triggered when a subscription is canceled by the merchant."
+---
+
+<ResponseExample>
+```json
+{
+  "eventId": "6762a9fec2e0680b48ef7e96",
+  "eventType": "subscription.canceled",
+  "eventTime": 1734519294697,
+  "subscriptionId": "67584f2ff7e87e1957097be0",
+  "status": "CANCELED",
+  "amount": 10000,
+  "currency": "USD",
+  "cycleCount": 3,
+  "interval": "MINUTE",
+  "intervalCount": 2,
+  "nextPaymentDate": null,
+  "remainingCycleCount": 3
+}
+```
+</ResponseExample>
+
+<ResponseField name="eventId" type="string">
+  {" "}
+  A unique identifier for this specific event. This ensures that each event can be
+  tracked and processed individually.{" "}
+</ResponseField> <ResponseField name="eventType" type="string">
+  {" "}
+  Describes the type of event. In this case, it signifies that a subscription has
+  been canceled.{" "}
+</ResponseField> <ResponseField name="eventTime" type="integer">
+  {" "}
+  The timestamp when the event was generated, typically in milliseconds since the
+  Unix epoch (January 1, 1970). This value can be used to track when the event occurred.{" "}
+</ResponseField> <ResponseField name="subscriptionId" type="string">
+  {" "}
+  A unique identifier for the specific subscription that was canceled.{" "}
+</ResponseField> <ResponseField name="status" type="string">
+  {" "}
+  The current status of the subscription. For this event, the status will typically
+  be `CANCELED`.{" "}
+</ResponseField> <ResponseField name="amount" type="integer">
+  {" "}
+  The recurring payment amount for the subscription, expressed in the smallest unit
+  of the currency. Here, `10000` represents 100.00 USD (as USD typically uses two
+  decimal places).{" "}
+</ResponseField> <ResponseField name="currency" type="string">
+  {" "}
+  The currency used for the subscription payment. In this case, it is United States
+  Dollars (USD).{" "}
+</ResponseField> <ResponseField name="cycleCount" type="integer">
+  {" "}
+  The total number of billing cycles for the subscription before cancellation.{" "}
+</ResponseField> <ResponseField name="interval" type="string">
+  {" "}
+  The billing interval for the subscription, such as `MINUTE`, `MONTH`, or `YEAR`.{" "}
+</ResponseField> <ResponseField name="intervalCount" type="integer">
+  {" "}
+  Specifies the number of intervals between billing cycles. For instance, if `interval`
+  is `MINUTE` and `intervalCount` is `2`, the subscription was billed every two minutes.{" "}
+</ResponseField> <ResponseField name="nextPaymentDate" type="integer">
+  {" "}
+  The next payment date for the subscription. This will typically be `null` when
+  the subscription is canceled.{" "}
+</ResponseField> <ResponseField name="remainingCycleCount" type="integer">
+  {" "}
+  The number of billing cycles remaining for the subscription. For example, if the
+  subscription was set for 3 cycles and was canceled before completion, the remaining
+  cycle count will be `3`.{" "}
+</ResponseField>

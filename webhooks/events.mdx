@@ -13,6 +13,7 @@ xPay triggers various webhook events to keep you informed about the status of pa
 | **Intent Incomplete**     | `intent.incomplete`       | This event occurs when a payment intent is created, but the payment process is not successfully completed. |
 | **Intent Success**        | `intent.success`          | This event indicates that the payment intent has been successfully processed and the payment is complete.  |
 | **Intent Failed**         | `intent.failed`           | This event is triggered when the payment process for a given intent fails due to an error or insufficient funds. |
+| **Intent Refunded**       | `intent.refunded`         | This event is triggered when a payment intent is successfully refunded.                              |
 
 ---
 
@@ -25,9 +26,11 @@ xPay triggers various webhook events to keep you informed about the status of pa
 | **Subscription Cycle Charged** | `subscription.cycle_charged` | This event is triggered each time a recurring charge is successfully processed for an active subscription. |
 | **Subscription Inactive**    | `subscription.inactive`      | This event occurs when a subscription is paused or otherwise becomes inactive.           |
 | **Subscription Completed**   | `subscription.completed`     | This event indicates that the subscription has reached the end of its term or has been successfully completed. |
+| **Subscription Cancelled**   | `subscription.canceled`      | This event is triggered when a subscription is canceled by the merchant. |
 
 ---
 
 These events are designed to help you track and respond to changes in payment and subscription statuses, ensuring a smooth integration with xPay’s systems. Make sure to handle each event appropriately within your webhook implementation.
 
 For more details on how to handle webhooks and event security, refer to the [Webhooks Introduction](/webhooks/introduction).
+
